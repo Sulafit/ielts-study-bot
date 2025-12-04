@@ -64,5 +64,10 @@ class BotScheduler:
 
     def shutdown(self):
         """Shutdown the scheduler"""
-        self.scheduler.shutdown()
-        logger.info("Scheduler stopped")
+        try:
+            if self.scheduler.running:
+                self.scheduler.shutdown(wait=False)
+                logger.info("Scheduler stopped")
+        except RuntimeError as e:
+            # Event loop might be closed already, which is fine during shutdown
+            logger.debug(f"Scheduler shutdown: {e}")
