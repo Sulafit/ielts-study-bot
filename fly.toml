@@ -1,0 +1,22 @@
+# fly.toml app configuration file
+# See https://fly.io/docs/reference/configuration/ for more info
+
+app = "ielts-study-bot"
+primary_region = "ams" # Amsterdam - closest to Almaty (можно изменить на другой регион)
+
+[build]
+
+[env]
+  TIMEZONE = "Asia/Almaty"
+  MORNING_REMINDER_TIME = "09:00"
+  AFTERNOON_REMINDER_TIME = "14:30"
+  TOPIC_REMINDER_TIME = "10:00"
+  TOPICS_START_DATE = ""
+  GROUP_CHAT_ID = "0"
+  STUDY_BUDDIES = ""
+  DB_PATH = "/data/bot_data.db"
+
+[mounts]
+  source = "bot_data"
+  destination = "/data"
+  initial_size = "1gb"
