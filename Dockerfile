@@ -19,8 +19,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY *.py .
 COPY .env* .
 
-# Create volume for database persistence
-VOLUME ["/app/data"]
+# Create data directory for database
+RUN mkdir -p /app/data
 
 # Run the bot
 CMD ["python", "main.py"]
