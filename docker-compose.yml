@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  ielts-bot:
+    build: .
+    container_name: ielts-study-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      # Persist database
+      - ./data:/app/data
+      # Mount .env file
+      - ./.env:/app/.env:ro
+    environment:
+      # Override DB path to use persistent volume
+      - DB_PATH=/app/data/bot_data.db
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: ielts-study-bot
+    env: docker
+    plan: free
+    # Render automatically detects Dockerfile
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    envVars:
+      - key: BOT_TOKEN
+        sync: false
+      - key: GROUP_CHAT_ID
+        value: "0"
+      - key: STUDY_BUDDIES
+        value: ""
+      - key: TIMEZONE
+        value: "Asia/Almaty"
+      - key: MORNING_REMINDER_TIME
+        value: "09:00"
+      - key: AFTERNOON_REMINDER_TIME
+        value: "14:30"
+      - key: TOPIC_REMINDER_TIME
+        value: "10:00"
+      - key: TOPICS_START_DATE
+        value: ""
+      - key: DB_PATH
+        value: "/app/data/bot_data.db"
+    # Create persistent disk for database
+    disk:
+      name: bot-data
+      mountPath: /app/data
+      sizeGB: 1
